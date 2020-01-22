@@ -10,17 +10,17 @@ from tkinter import messagebox as mb
 def filter(arrayres, arrayres1, window, count, back1, lab1, vid1):
     n = 0
     u = (window - 1) / 2
-    for i in range(count - window - 2):
+    for i in range(count - window - 1):
         ms1 = 0
         ms2 = 0
-        for j in range(i, i + window - 1):
+        for j in range(i, i + window):
             ms1 += arrayres[i][1]
             ms2 += arrayres[i][2]
         ms1 /= window
         ms2 /= window
         sko1 = 0
         sko2 = 0
-        for j in range(i, i + window - 1):
+        for j in range(i, i + window):
             sko1 += (arrayres[i][1] - ms1) ** 2
             sko2 += (arrayres[i][2] - ms2) ** 2
         sko1 = math.sqrt(sko1 / window) * 3
@@ -32,7 +32,7 @@ def filter(arrayres, arrayres1, window, count, back1, lab1, vid1):
         highframe1 = ms1 + sko1
         highframe2 = ms2 + sko2
         if i == 0:
-            for j in range(i, u - 1):
+            for j in range(i, u):
                 if ((lowframe1 <= arrayres[j][1]) and (arrayres[j][1] <= highframe1)) and ((lowframe2 <= arrayres[j][2]) and (arrayres[j][2] <= highframe2)):
                     arrayres1[n][0] = arrayres[j][0]
                     arrayres1[n][1] = arrayres[j][1]
@@ -57,8 +57,8 @@ def filter(arrayres, arrayres1, window, count, back1, lab1, vid1):
             vid1 -= 1
         else:
             vid1 -= 1
-        if i == count - window - 2:
-            for j in range(i + u + 1, count - 1):
+        if i == count - window - 1:
+            for j in range(i + u + 1, count):
                 if ((lowframe1 <= arrayres[j][1]) and (arrayres[j][1] <= highframe1)) and ((lowframe2 <= arrayres[j][2]) and (arrayres[j][2] <= highframe2)):
                     arrayres1[n][0] = arrayres[j][0]
                     arrayres1[n][1] = arrayres[j][1]
@@ -144,7 +144,7 @@ vid = round((vid + vid2) / 2)
 with open(path+"ResultFiltered.csv", 'w') as resultf:
     writer = csv.writer(resultf)
     writer.writerow("Time", "LeftChannel", "RightChannel", "", "Arts= ", errors, proc + "%")
-    for i in range (0, count - 1):
+    for i in range (count):
         writer.writerow(arrayres4[i][0], arrayres4[i][1], arrayres4[i][2])
 
 with open(path+"Markers.csv", 'w') as markers:
