@@ -7,7 +7,8 @@ from tkinter import messagebox as mb
 # Описываем функцию, где происходит оконная фильтрация
 #  по правилу трёх сигм
 
-def filter(arrayres, arrayres1, window, count, back1, lab1, vid1):
+def filter(arrayres, window, count, error, back1, lab1, vid1):
+    arrayres1 = np.zeros((count, 3))
     n = 0
     u = (window - 1) / 2
     for i in range(count - window - 1):
@@ -66,12 +67,13 @@ def filter(arrayres, arrayres1, window, count, back1, lab1, vid1):
                     n += 1
                 else:
                     vid1 -= 1
-    errors1 = count - n
-    for i in range(n, count - 1):
+    error += count - n
+    for i in range(n, count):
         del arrayres1[i][0]
         del arrayres1[i][1]
         del arrayres1[i][2]
-    return arrayres1, back1, lab1, vid1, errors1
+    count -= error
+    return arrayres1, back1, lab1, vid1, error, count
 
 # Проверяем наличие файла Result.csv и считываем 
 #  из него данные в массив arrayres, рассчитываем метки нагрузок
@@ -110,21 +112,11 @@ for row in results:
 
 # Запускаем фильтрацию и считаем количество артефактов
 
-errors = 0
+error = 0
 prevcount = count
-arrayres1 = np.zeros((count, 3))
-arrayres2, back1, lab1, vid1, errors1 = filter(arrayres, arrayres1, 241, count, back1, lab1, vid1)
-errors += errors1
-count -= errors1
-arrayres1 = np.zeros((count, 3))
-arrayres3, back1, lab1, vid1, errors1 = filter(arrayres2, arrayres1, 161, count, back1, lab1, vid1)
-errors += errors1
-count -= errors1
-arrayres1 = np.zeros((count, 3))
-arrayres4, back1, lab1, vid1, errors1 = filter(arrayres3, arrayres1, 81, count, back1, lab1, vid1)
-errors += errors1
-count -= errors1 
-proc = 100 * errors / prevcount
+for h in range (241, 1, -80):
+    arrayres, back1, lab1, vid1, error, count = filter(arrayres, h, count, error, back1, lab1, vid1)
+proc = 100 * error / prevcount
 
 if count <= vid:
     mb.showerror("Ошибка", "Было выявлено слишком много артефактов. Требуется повторная запись")
