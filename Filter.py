@@ -135,9 +135,9 @@ vid = round((vid + vid2) / 2)
 
 with open(path+"ResultFiltered.csv", 'w') as resultf:
     writer = csv.writer(resultf)
-    writer.writerow("Time", "LeftChannel", "RightChannel", "", "Arts= ", errors, proc + "%")
+    writer.writerow("Time", "LeftChannel", "RightChannel", "", "Arts= ", error, proc + "%")
     for i in range (count):
-        writer.writerow(arrayres4[i][0], arrayres4[i][1], arrayres4[i][2])
+        writer.writerow(arrayres[i][0], arrayres[i][1], arrayres[i][2])
 
 with open(path+"Markers.csv", 'w') as markers:
     writer = csv.writer(markers)
