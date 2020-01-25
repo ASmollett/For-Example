@@ -72,8 +72,7 @@ def filter(arrayres, window, count, error, back1, lab1, vid1):
         del arrayres1[i][0]
         del arrayres1[i][1]
         del arrayres1[i][2]
-    count -= error
-    return arrayres1, back1, lab1, vid1, error, count
+    return arrayres1, back1, lab1, vid1, error, n
 
 # Проверяем наличие файла Result.csv и считываем 
 #  из него данные в массив arrayres, рассчитываем метки нагрузок
