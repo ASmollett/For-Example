@@ -15,15 +15,15 @@ def filter(arrayres, window, count, error, back1, lab1, vid1):
         ms1 = 0
         ms2 = 0
         for j in range(i, i + window):
-            ms1 += arrayres[i][1]
-            ms2 += arrayres[i][2]
+            ms1 += arrayres[j][1]
+            ms2 += arrayres[j][2]
         ms1 /= window
         ms2 /= window
         sko1 = 0
         sko2 = 0
         for j in range(i, i + window):
-            sko1 += (arrayres[i][1] - ms1) ** 2
-            sko2 += (arrayres[i][2] - ms2) ** 2
+            sko1 += (arrayres[j][1] - ms1) ** 2
+            sko2 += (arrayres[j][2] - ms2) ** 2
         sko1 = math.sqrt(sko1 / window) * 3
         sko2 = math.sqrt(sko2 / window) * 3
         lowframe1 = 0
