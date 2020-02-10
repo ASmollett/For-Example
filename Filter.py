@@ -7,7 +7,7 @@ from tkinter import messagebox as mb
 # Описываем функцию, где происходит оконная фильтрация
 #  по правилу трёх сигм
 
-def filter(arrayres, window, count, error, back1, lab1, vid1):
+def filterf(arrayres, window, count, error, back1, lab1, vid1):
     arrayres1 = np.zeros((count, 3))
     n = 0
     u = (window - 1) / 2
@@ -114,7 +114,7 @@ for row in results:
 error = 0
 prevcount = count
 for h in range (241, 1, -80):
-    arrayres, back1, lab1, vid1, error, count = filter(arrayres, h, count, error, back1, lab1, vid1)
+    arrayres, back1, lab1, vid1, error, count = filterf(arrayres, h, count, error, back1, lab1, vid1)
 proc = 100 * error / prevcount
 
 if count <= vid:
